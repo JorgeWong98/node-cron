@@ -24,14 +24,15 @@ export const authorize = async () => {
     return client;
   }
 
-  const nextTry = await authenticate({
+  const oauth2Client = await authenticate({
     scopes: SCOPES,
-    keyfilePath: CREDENTIALS_PATH,
+    keyfilePath: CREDENTIALS_PATH,    
   });
-  if (nextTry.credentials) {
-    await saveCredentials(nextTry);
+  
+  if (oauth2Client.credentials) {
+    await saveCredentials(oauth2Client);
   }
-  return nextTry;
+  return oauth2Client;
 };
 
 async function loadSavedCredentialsIfExist() {
